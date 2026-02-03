@@ -1,0 +1,5 @@
+{
+  "name": "Fact or Phishing",
+  "description": "A desktop-style phishing training mini-game where players identify phishing emails through side-by-side comparison in a classic OS environment.",
+  "requestFramePermissions": []
+}

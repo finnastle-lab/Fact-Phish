@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fact or Phishing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=IBM+Plex+Sans:wght@400;700&family=IBM+Plex+Mono:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: #d4d4d8;
+            height: 100dvh;
+        }
+
+        .win95-shadow {
+            box-shadow: inset 1px 1px #ffffff, inset -1px -1px #52525b, 1px 1px #000000;
+        }
+
+        .win95-shadow-inset {
+            box-shadow: inset 1px 1px #52525b, inset -1px -1px #ffffff;
+        }
+
+        .mono-font {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes fish-float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(15px, -10px) rotate(5deg); }
+            66% { transform: translate(-10px, 15px) rotate(-5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .lazy-fish {
+            animation: fish-float 8s ease-in-out infinite;
+            pointer-events: none;
+            position: absolute;
+            z-index: 5;
+        }
+
+        .pixel-fish {
+            image-rendering: pixelated;
+            display: inline-block;
+        }
+        .pixel-fish--xs { width: 32px; height: 32px; }
+        .pixel-fish--sm { width: 48px; height: 48px; }
+        .pixel-fish--left { transform: scaleX(-1); }
+        
+        .animate-swim-x {
+            animation: swim-x linear var(--swim-duration, 12s) infinite;
+        }
+        
+        .animate-swim-bob {
+            animation: swim-bob ease-in-out 2.4s infinite;
+        }
+        
+        .blink-80s .eye {
+            animation: blink-eye steps(1, end) var(--blink-duration, 1.2s) infinite;
+        }
+
+        @keyframes swim-x {
+            0% { transform: translateX(-20vw); }
+            100% { transform: translateX(120vw); }
+        }
+        
+        @keyframes swim-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
+        }
+        
+        @keyframes blink-eye {
+            0%, 86% { opacity: 1; }
+            87%, 93% { opacity: 0; }
+            94%, 100% { opacity: 1; }
+        }
+
+        /* Responsive scaling for mobile split screens */
+        @media (max-width: 640px) {
+            .mobile-scale-email {
+                transform-origin: top center;
+                scale: 0.85;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .lazy-fish, .animate-swim-x, .animate-swim-bob, .blink-80s .eye {
+                animation: none !important;
+            }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
