@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Win95Window from './Win95Window';
-import FishParticles from './FishParticles';
-import BillyBass from './BillyBass';
-import { SCENARIOS } from '../constants';
+import Win95Window from './Win95Window.tsx';
+import FishParticles from './FishParticles.tsx';
+import BillyBass from './BillyBass.tsx';
+import { SCENARIOS } from '../constants.ts';
 
 interface CompleteScreenProps {
   results: Record<string, boolean>;

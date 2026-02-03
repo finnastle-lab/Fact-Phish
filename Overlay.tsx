@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Win95Window from './Win95Window';
-import FishParticles from './FishParticles';
-import BillyBass from './BillyBass';
+import Win95Window from './Win95Window.tsx';
+import FishParticles from './FishParticles.tsx';
+import BillyBass from './BillyBass.tsx';
 
 interface OverlayProps {
   type: 'SUCCESS' | 'FAILURE';
   reasons?: string[];
   hints?: string[];
   onAction: () => void;
-  onRetry?: () => void; // Keeping prop for compatibility but not using it
+  onRetry?: () => void;
 }
 
 const Overlay: React.FC<OverlayProps> = ({ type, reasons, hints, onAction }) => {

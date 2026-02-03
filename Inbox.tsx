@@ -1,7 +1,6 @@
-
 import React from 'react';
-import Win95Window from './Win95Window';
-import { SCENARIOS } from '../constants';
+import Win95Window from './Win95Window.tsx';
+import { SCENARIOS } from '../constants.ts';
 
 interface InboxProps {
   completedScenarioIds: string[];

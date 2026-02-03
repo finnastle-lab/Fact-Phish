@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmailVariant } from '../types';
+import { EmailVariant } from '../types.ts';
 
 interface EmailWindowProps {
   variant: EmailVariant;

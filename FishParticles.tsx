@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import PixelFish from './PixelFish';
+import PixelFish from './PixelFish.tsx';
 
 const PALETTES = ['mono-white', 'mono-black'] as const;
 const SIZES = ['xs', 'sm'] as const;
@@ -32,7 +31,7 @@ const FishParticles: React.FC<FishParticlesProps> = ({ continuous = false }) => 
       size: SIZES[Math.floor(Math.random() * SIZES.length)],
       palette: PALETTES[Math.floor(Math.random() * PALETTES.length)],
       duration: 8 + Math.random() * 12,
-      delay: Math.random() * -24, // Negative delay so they are already on screen
+      delay: Math.random() * -24,
       blinkDuration: 1 + Math.random() * 1.5
     });
 
@@ -47,7 +46,6 @@ const FishParticles: React.FC<FishParticlesProps> = ({ continuous = false }) => 
           className="absolute w-full"
           style={{ top: `${p.y}%`, left: 0 }}
         >
-          {/* Outer container handles horizontal swim */}
           <div 
             className="animate-swim-x"
             style={{ 
@@ -55,7 +53,6 @@ const FishParticles: React.FC<FishParticlesProps> = ({ continuous = false }) => 
               animationDelay: `${p.delay}s` 
             } as React.CSSProperties}
           >
-            {/* Inner container handles vertical bobbing */}
             <div className="animate-swim-bob">
               <PixelFish 
                 size={p.size} 

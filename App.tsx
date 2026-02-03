@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { GameState, GameView, MobileTrial } from './types';
-import { SCENARIOS } from './constants';
-import Inbox from './components/Inbox';
-import Win95Window from './components/Win95Window';
-import EmailWindow from './components/EmailWindow';
-import Overlay from './components/Overlay';
-import CompleteScreen from './components/CompleteScreen';
-import FishParticles from './components/FishParticles';
+import { GameState, MobileTrial } from './types.ts';
+import { SCENARIOS } from './constants.ts';
+import Inbox from './components/Inbox.tsx';
+import Win95Window from './components/Win95Window.tsx';
+import EmailWindow from './components/EmailWindow.tsx';
+import Overlay from './components/Overlay.tsx';
+import CompleteScreen from './components/CompleteScreen.tsx';
+import FishParticles from './components/FishParticles.tsx';
 
 const App: React.FC = () => {
   // Treating screens >= 640px as Desktop/Tablet comparison experience
@@ -145,7 +145,7 @@ const App: React.FC = () => {
     <div className="relative w-screen h-[100dvh] overflow-hidden flex flex-col bg-[#6a7b88] select-none">
       <div className="absolute inset-0 z-0 bg-zinc-900 opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '8px 8px' }}></div>
 
-      {/* Background Icons */}
+      {/* Desktop Icons */}
       <div className="p-3 sm:p-6 z-10 flex flex-col gap-4 sm:gap-6 w-20 sm:w-28 shrink-0">
         <button 
           onClick={() => isPhone ? startPhoneGame() : setState(prev => ({ ...prev, view: 'INBOX' }))} 
@@ -155,35 +155,27 @@ const App: React.FC = () => {
           <span className="text-white text-[8px] sm:text-xs font-bold bg-zinc-900 px-2 py-0.5 rounded border border-white/20 uppercase tracking-tighter">Inbox</span>
         </button>
 
-        <button 
-          onClick={() => setShowReadme(true)} 
-          className="flex flex-col items-center gap-1 group outline-none"
-        >
+        <button onClick={() => setShowReadme(true)} className="flex flex-col items-center gap-1 group outline-none">
           <div className="w-10 h-10 sm:w-16 sm:h-16 bg-zinc-300 win95-shadow flex items-center justify-center text-2xl sm:text-4xl group-hover:bg-zinc-200 active:translate-y-0.5">📄</div>
           <span className="text-white text-[8px] sm:text-xs font-bold bg-zinc-900 px-2 py-0.5 rounded border border-white/20 uppercase tracking-tighter">ReadMe</span>
         </button>
 
-        <button 
-          onClick={handleReset} 
-          className="flex flex-col items-center gap-1 group outline-none"
-        >
+        <button onClick={handleReset} className="flex flex-col items-center gap-1 group outline-none">
           <div className="w-10 h-10 sm:w-16 sm:h-16 bg-zinc-300 win95-shadow flex items-center justify-center text-2xl sm:text-4xl group-hover:bg-zinc-200 active:translate-y-0.5">💾</div>
           <span className="text-white text-[8px] sm:text-xs font-bold bg-zinc-900 px-2 py-0.5 rounded border border-white/20 uppercase tracking-tighter">Reset</span>
         </button>
       </div>
 
-      {/* Views */}
       {state.view === 'INBOX' && !isPhone && (
         <div className="absolute inset-0 z-20 flex items-center justify-center p-2 sm:p-8 bg-black/30 backdrop-blur-sm">
           <Inbox completedScenarioIds={state.completedScenarioIds} results={state.results} onSelectScenario={handleSelectScenario} onClose={() => setState(p => ({ ...p, view: 'DESKTOP' }))} />
         </div>
       )}
 
-      {/* Phone Specific Sequential Game */}
       {isPhone && state.view === 'MOBILE_TRIAL' && activeScenario && (
         <div className="absolute inset-x-0 top-0 bottom-12 z-20 flex flex-col bg-zinc-300 overflow-hidden">
            <div className="bg-zinc-800 text-white p-1 text-[10px] font-bold flex justify-between items-center h-8 shrink-0 px-3">
-              <span className="truncate uppercase">SIMULATION: TRIAL {state.currentMobileTrialIndex + 1}/3</span>
+              <span className="truncate uppercase">TRIAL {state.currentMobileTrialIndex + 1}/3</span>
            </div>
            <div className="flex-1 overflow-hidden m-0.5 win95-shadow-inset bg-white flex flex-col min-h-0">
               <EmailWindow 
@@ -194,21 +186,20 @@ const App: React.FC = () => {
               />
            </div>
            <div className="p-1.5 bg-zinc-200 flex gap-2 h-14 shrink-0 border-t-2 border-white win95-shadow z-30">
-              <button onClick={() => handleClassification('FACT')} className="flex-1 bg-zinc-100 border-2 border-zinc-800 font-black text-black text-sm active:bg-zinc-300 win95-shadow uppercase tracking-tighter">Fact</button>
-              <button onClick={() => handleClassification('PHISH')} className="flex-1 bg-zinc-900 border-2 border-zinc-100 font-black text-white text-sm active:bg-black win95-shadow uppercase tracking-tighter">Phish</button>
+              <button onClick={() => handleClassification('FACT')} className="flex-1 bg-zinc-100 border-2 border-zinc-800 font-black text-black text-sm win95-shadow uppercase">Fact</button>
+              <button onClick={() => handleClassification('PHISH')} className="flex-1 bg-zinc-900 border-2 border-zinc-100 font-black text-white text-sm win95-shadow uppercase">Phish</button>
            </div>
         </div>
       )}
 
-      {/* Tablet/Desktop Comparison View - Highly optimized to fit viewport */}
       {!isPhone && (state.view === 'COMPARE' || state.view === 'SUCCESS' || state.view === 'FAILURE') && activeScenario && (
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-1 sm:p-4 bg-black/20">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-1 sm:p-4 bg-black/20 overflow-hidden">
           <Win95Window 
             title={`ANALYSIS: ${activeScenario.industry.toUpperCase()}`} 
-            className="w-[99%] h-[98%] max-h-[900px] sm:w-[98%] sm:h-[94%]" 
+            className="w-[99%] h-[98%] max-h-[920px] sm:w-[98%] sm:h-[95%]" 
             onClose={handleBackToInbox}
           >
-            <div className="flex-1 flex flex-row gap-1 sm:gap-4 p-0.5 sm:p-3 bg-zinc-300 justify-center overflow-hidden min-h-0">
+            <div className="flex-1 flex flex-row gap-1 sm:gap-4 p-1 sm:p-4 bg-zinc-300 justify-center overflow-hidden min-h-0">
               <div className="flex-1 min-w-0 h-full flex flex-col">
                 <EmailWindow 
                   id={layout === 'NORMAL' ? 'A' : 'B'} 
@@ -247,7 +238,7 @@ const App: React.FC = () => {
       <div className="mt-auto h-12 sm:h-14 bg-zinc-300 border-t-2 border-white win95-shadow z-[90] flex items-center px-2 sm:px-3 shrink-0">
         <button 
           onClick={() => isPhone ? startPhoneGame() : setState(prev => ({ ...prev, view: 'INBOX' }))}
-          className="h-8 sm:h-10 px-4 sm:px-6 bg-zinc-300 win95-shadow font-black text-[10px] sm:text-lg border-2 border-zinc-100 flex items-center gap-1 sm:gap-2 hover:bg-zinc-200 active:translate-y-0.5"
+          className="h-8 sm:h-10 px-4 sm:px-6 bg-zinc-300 win95-shadow font-black text-[10px] sm:text-lg border-2 border-zinc-100 flex items-center gap-1 sm:gap-2 active:translate-y-0.5"
         >
           <div className="w-3 h-3 sm:w-6 sm:h-6 bg-zinc-800 border border-white"></div>
           START

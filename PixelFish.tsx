@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { FISH_ASSETS } from './FishData';
+import { FISH_ASSETS } from './FishData.ts';
 
 interface PixelFishProps {
   size?: 'xs' | 'sm';
